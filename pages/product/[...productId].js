@@ -114,9 +114,33 @@ const ProductPage = (props) => {
   );
 };
 
-export async function getServerSideProps({ query }) {
-  console.log(query.productId[0]);
-  const product = await client.product.fetch(query.productId[0]);
+// export async function getServerSideProps({ query }) {
+//   console.log(query.productId[0]);
+//   const product = await client.product.fetch(query.productId[0]);
+//   return {
+//     props: {
+//       product: JSON.parse(JSON.stringify(product)),
+//     }, // will be passed to the page component as props
+//   };
+// }
+
+export const getStaticPaths = async () => {
+  const products = JSON.parse(JSON.stringify(await client.product.fetchAll()));
+  console.log("====================================");
+  console.log(products);
+  return {
+    paths: products.map(({ id }) => ({
+      params: { productId: id.split('/') },
+    })),
+    fallback: false,
+  }
+}
+
+export async function getStaticProps({ params }) {
+  const productId = params.productId.join('/');
+  console.log(productId);
+
+  const product = await client.product.fetch(productId);
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
