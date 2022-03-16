@@ -11,14 +11,22 @@ const About = ({ buildTimestamp, data }) => {
 }
 
 export async function getStaticProps() {
-  const {data} = await axios.get(process.env.NETLIFY_URL + '/api/1-hello');
-
-  return {
+  try{
+    const {data} = await axios.get(process.env.NETLIFY_URL + '/api/1-hello');
+    return {
       props: {
           data: data,
           buildTimestamp: Date.now(),
       }
   };
+  } catch (error) {
+      return {
+        props: {
+            data: '',
+            buildTimestamp: Date.now(),
+        }
+    };
+  }
 }
 
 export default About;
