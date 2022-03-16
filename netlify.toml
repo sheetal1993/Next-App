@@ -3,6 +3,9 @@
   publish = "out"
   functions = './functions'
 
+[build.environment]
+NETLIFY_NEXT_PLUGIN_SKIP = "true"  
+
 [dev]
   command = "npm run dev"
   framework = "#custom"
