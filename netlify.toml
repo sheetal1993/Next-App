@@ -1,7 +1,7 @@
 [build]
   command = "yarn build && yarn export"
   publish = "out"
-  functions = './functions'
+  functions = './functions' 
 
 [build.environment]
 NETLIFY_NEXT_PLUGIN_SKIP = "true"  
@@ -20,6 +20,24 @@ NETLIFY_NEXT_PLUGIN_SKIP = "true"
 package = "@netlify/plugin-nextjs"
 
 [[redirects]]    
-from = '/api/*'
+from = '/api1/*'
 to = '/.netlify/functions/:splat'
 status = 200
+
+[[redirects]]
+    from = "/hex/:color"
+    to = "/.netlify/functions/color"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/rgb/:r/:g/:b"
+    to = "/.netlify/functions/color"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/named/:color"
+    to = "/.netlify/functions/color"
+    status = 200
+    force = true

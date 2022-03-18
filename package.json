@@ -15,6 +15,7 @@
     "apollo-client": "^2.6.10",
     "apollo-link-http": "^1.5.17",
     "axios": "^0.21.1",
+    "cookies-next": "^2.0.4",
     "geoip-lite": "^1.4.4",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",
@@ -31,6 +32,7 @@
     "swr": "^1.2.2"
   },
   "devDependencies": {
+    "@netlify/functions": "^1.0.0",
     "@netlify/plugin-nextjs": "^4.2.7",
     "eslint": "8.10.0",
     "eslint-config-next": "12.1.0",

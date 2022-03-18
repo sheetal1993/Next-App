@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { client } from "../utils/shopify";
 import { createMedia } from "@artsy/fresnel";
+import { setCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
+import SEO from "../components/SEO";
 import {
   Button,
   Popup,
@@ -20,6 +23,7 @@ import {
   Sidebar,
   Visibility,
 } from "semantic-ui-react";
+import charity from '../assets/charity';
 
 /* Heads up!
  * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled
@@ -38,6 +42,12 @@ const HomepageHeading = ({ mobile }) => (
         marginTop: mobile ? "1.5em" : "3em",
       }}
     />
+    <SEO
+      openGraphType="website"
+      schemaType="article"
+      title="The Fate of Empires"
+      description="The only thing we learn from history, it has been said, 'is that men never learn from history'..."
+    />
     <Header
       as="h2"
       content="Do whatever you want when you want to."
@@ -51,6 +61,30 @@ const HomepageHeading = ({ mobile }) => (
     <Button primary size="huge">
       Get Started
       <Icon name="right arrow" />
+    </Button>
+    <Button primary size="huge" onClick={() => {
+      setCookies('charity', 'care');
+      // fetch("/api/setcookie", {
+      //   method: "post",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({charity: "care"}),
+      // });
+    }}>
+      Set Care
+    </Button>
+    <Button primary size="huge" onClick={() => {
+      setCookies('charity', 'home');
+      // fetch("/api/setcookie", {
+      //   method: "post",
+      //   headers: {
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({charity: "home"}),
+      // });
+    }}>
+      Set home
     </Button>
   </Container>
 );
@@ -82,9 +116,26 @@ const Home = (props) =>
               }}
             />
             <Card.Group itemsPerRow={props.isMobile ? 3 : 4}>
-              {props.products?.map(
-                (product) =>
-                  console.log(product) || (
+              {props.products?.map(function(product, idx){
+                const charityArr = {
+                  "care":
+                  {
+                    "name": "care",
+                    "unit": 1,
+                    "message": "1 unit available of care",
+                    "cost":450
+                  },
+                  "home":
+                  {
+                    "name": "home",
+                    "unit": 2,
+                    "message": "2 unit available of home",
+                    "cost":500
+                  }
+                };
+                const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
+  
+                  return (console.log(product) || (
                     <Link key={product.id} href={`product/${product.id}`}>
                       <Card raised>
                         <Image src={product.images[0].src} wrapped ui={false} />
@@ -100,11 +151,14 @@ const Home = (props) =>
                           <Card.Description>
                             Daniel is a comedian living in Nashville.
                           </Card.Description>
+                          <Card.Description>
+                            {message}{product.price}
+                          </Card.Description>
                         </Card.Content>
                       </Card>
                      </Link>
-                  )
-              )}
+                  ))
+                  })}
             </Card.Group>
           </Grid.Row>
         </Grid>

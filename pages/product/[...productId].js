@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { client } from "../../utils/shopify";
 import { addProductToCart } from "../../utils/Cart";
+import Head from "next/head";
+import { getCookie } from 'cookies-next';
 
 import {
   List,
@@ -15,6 +17,24 @@ const ProductPage = (props) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState("");
+  const charityArr = {
+    "care":
+    {
+      "name": "care",
+      "unit": 1,
+      "message": "1 unit available of care",
+      "cost":450
+    },
+    "home":
+    {
+      "name": "home",
+      "unit": 2,
+      "message": "2 unit available of home",
+      "cost":500
+    }
+  };
+  const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
+
   console.log(props.product);
   const {
     product: { images, title, descriptionHtml, id, variants },
@@ -46,6 +66,19 @@ const ProductPage = (props) => {
   }));
   return (
     <Grid centered container>
+      <Head>
+        <meta charset="UTF-8" />
+        <meta name="charity" content='{
+        "care": {
+        "name": "care",
+        "unit": 1
+        },
+        "home": {
+        "name": "home",
+        "unit": 2
+        }
+     }' />
+      </Head>
       <Grid.Row stackable padded centered>
         <Grid.Column mobile={16} tablet={10} computer={10}>
           <Grid.Row>
@@ -75,7 +108,7 @@ const ProductPage = (props) => {
           style={{ marginTop: 50 }}
         >
           <Segment>
-            <Header>{title}</Header>
+            <Header>{title} {message}</Header>
             <Header as="h3">Size </Header>
             <Dropdown
               // placeholder="Select Friend"
