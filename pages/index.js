@@ -191,6 +191,7 @@ export const getStaticProps = async (context) => {
       infos: JSON.parse(JSON.stringify(infos)),
       policies: JSON.parse(JSON.stringify(policies)),
       products: JSON.parse(JSON.stringify(products)),
+      revalidate: 60, // In seconds
     },
   };
 };

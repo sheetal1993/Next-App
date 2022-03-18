@@ -67,7 +67,7 @@ const ProductPage = (props) => {
   return (
     <Grid centered container>
       <Head>
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta name="charity" content='{
         "care": {
         "name": "care",
@@ -177,6 +177,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
+      revalidate: 60,
     }, // will be passed to the page component as props
   };
 }
