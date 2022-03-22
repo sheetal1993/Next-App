@@ -28,13 +28,6 @@ import charity from '../assets/charity';
 const Beauty = (props) =>
   console.log(props) || (
     <>
-      <Segment
-        inverted
-        textAlign="center"
-        style={{ minHeight: props.isMobile ? 300 : 700 }}
-        vertical
-      >
-      </Segment>
       <Segment vertical style={{ padding: "2em" }}>
         <Grid container stackable verticalAlign="middle">
           <Grid.Row>

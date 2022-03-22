@@ -32,13 +32,6 @@ class Productlisting extends Component {
         console.log(this.props.products);
         return (
         <>
-      <Segment
-        inverted
-        textAlign="center"
-        style={{ minHeight: this.props.isMobile ? 300 : 700 }}
-        vertical
-      >
-      </Segment>
       <Segment vertical style={{ padding: "2em" }}>
         <Grid container stackable verticalAlign="middle">
           <Grid.Row>

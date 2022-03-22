@@ -64,30 +64,23 @@ const HomepageHeading = ({ mobile }) => (
     </Button>
     <Button primary size="huge" onClick={() => {
       setCookies('charity', 'care');
-      // fetch("/api/setcookie", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({charity: "care"}),
-      // });
     }}>
       Set Care
     </Button>
     <Button primary size="huge" onClick={() => {
       setCookies('charity', 'home');
-      // fetch("/api/setcookie", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({charity: "home"}),
-      // });
     }}>
       Set home
     </Button>
-    {/* <Link key="beauty" href="/list/Beauty">Beauty</Link>
-    <Link key="Jewelry" href="/list/Beauty">Jewelry</Link> */}
+    <Link key="beauty" href="/beauty"><Button primary size="huge">
+    Beauty
+    </Button></Link>
+    <Link key="Jewelry" href="/jewelry"><Button primary size="huge">
+    Jewelry
+    </Button></Link>
+    <Link key="products" href="/productlisting?type=jewelry"><Button primary size="huge">
+    All Products
+    </Button></Link>
   </Container>
 );
 
