@@ -25,77 +25,7 @@ import {
 } from "semantic-ui-react";
 import charity from '../assets/charity';
 
-/* Heads up!
- * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled
- * components for such things.
- */
-const HomepageHeading = ({ mobile }) => (
-  <Container text>
-    <Header
-      as="h1"
-      content="Imagine-a-Company"
-      inverted
-      style={{
-        fontSize: mobile ? "2em" : "4em",
-        fontWeight: "normal",
-        marginBottom: 0,
-        marginTop: mobile ? "1.5em" : "3em",
-      }}
-    />
-    <SEO
-      openGraphType="website"
-      schemaType="article"
-      title="The Fate of Empires"
-      description="The only thing we learn from history, it has been said, 'is that men never learn from history'..."
-    />
-    <Header
-      as="h2"
-      content="Do whatever you want when you want to."
-      inverted
-      style={{
-        fontSize: mobile ? "1.5em" : "1.7em",
-        fontWeight: "normal",
-        marginTop: mobile ? "0.5em" : "1.5em",
-      }}
-    />
-    <Button primary size="huge">
-      Get Started
-      <Icon name="right arrow" />
-    </Button>
-    <Button primary size="huge" onClick={() => {
-      setCookies('charity', 'care');
-      // fetch("/api/setcookie", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({charity: "care"}),
-      // });
-    }}>
-      Set Care
-    </Button>
-    <Button primary size="huge" onClick={() => {
-      setCookies('charity', 'home');
-      // fetch("/api/setcookie", {
-      //   method: "post",
-      //   headers: {
-      //     "Content-Type": "application/json"
-      //   },
-      //   body: JSON.stringify({charity: "home"}),
-      // });
-    }}>
-      Set home
-    </Button>
-    {/* <Link key="beauty" href="/list/Beauty">Beauty</Link>
-    <Link key="Jewelry" href="/list/Beauty">Jewelry</Link> */}
-  </Container>
-);
-
-HomepageHeading.propTypes = {
-  mobile: PropTypes.bool,
-};
-
-const Home = (props) =>
+const Jewelry = (props) =>
   console.log(props) || (
     <>
       <Segment
@@ -104,7 +34,6 @@ const Home = (props) =>
         style={{ minHeight: props.isMobile ? 300 : 700 }}
         vertical
       >
-        <HomepageHeading mobile={props.isMobile} />
       </Segment>
       <Segment vertical style={{ padding: "2em" }}>
         <Grid container stackable verticalAlign="middle">
@@ -118,7 +47,7 @@ const Home = (props) =>
               }}
             />
             <Card.Group itemsPerRow={props.isMobile ? 3 : 4}>
-              {props.products?.map(function(product, idx){
+              {props.beautyProducts?.map(function(product, idx){
                 const charityArr = {
                   "care":
                   {
@@ -154,7 +83,7 @@ const Home = (props) =>
                             Daniel is a comedian living in Nashville.
                           </Card.Description>
                           <Card.Description>
-                            {message}{product.price}{product.productType}
+                            {message}{product.price}
                           </Card.Description>
                         </Card.Content>
                       </Card>
@@ -167,10 +96,13 @@ const Home = (props) =>
       </Segment>
     </>
   );
-export default Home;
+export default Jewelry;
 
 export const getStaticProps = async (context) => {
-  const products = await client.product.fetchAll();
+  const query = {
+    query: "productType:['customType:Jewelry']"
+  };
+  const beautyProducts = await client.product.fetchQuery(query);
   const infos = await client.shop.fetchInfo();
   const policies = await client.shop.fetchPolicies();
 
@@ -178,7 +110,7 @@ export const getStaticProps = async (context) => {
     props: {
       infos: JSON.parse(JSON.stringify(infos)),
       policies: JSON.parse(JSON.stringify(policies)),
-      products: JSON.parse(JSON.stringify(products)),
+      beautyProducts: JSON.parse(JSON.stringify(beautyProducts)),
       revalidate: 10, // In seconds
     },
   };
