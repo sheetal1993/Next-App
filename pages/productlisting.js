@@ -8,6 +8,7 @@ import { createMedia } from "@artsy/fresnel";
 import { setCookies } from 'cookies-next';
 import { getCookie } from 'cookies-next';
 import SEO from "../components/SEO";
+import axios from 'axios';
 import {
   Button,
   Popup,
@@ -29,6 +30,11 @@ class Productlisting extends Component {
 
     render() {
         const { query } = this.props.router;
+        const charityArr = this.props.charity;
+        const type = getCookie('charity') ? getCookie('charity') : 'care';
+        let message = charityArr[type].desc;
+        message = message.replace('[[unit]]', charityArr[type].unit);
+        message = message.replace('[[price]]', charityArr[type].price);
         console.log(this.props.products);
         return (
         <>
@@ -48,23 +54,23 @@ class Productlisting extends Component {
                   const productType = product.productType;
 
                   if(!query.type || (query.type && productType.match(query.type.charAt(0).toUpperCase()+query.type.slice(1)))) {
-                const charityArr = {
-                  "care":
-                  {
-                    "name": "care",
-                    "unit": 1,
-                    "message": "1 unit available of care",
-                    "cost":450
-                  },
-                  "home":
-                  {
-                    "name": "home",
-                    "unit": 2,
-                    "message": "2 unit available of home",
-                    "cost":500
-                  }
-                };
-                const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
+                // const charityArr = {
+                //   "care":
+                //   {
+                //     "name": "care",
+                //     "unit": 1,
+                //     "message": "1 unit available of care",
+                //     "cost":450
+                //   },
+                //   "home":
+                //   {
+                //     "name": "home",
+                //     "unit": 2,
+                //     "message": "2 unit available of home",
+                //     "cost":500
+                //   }
+                // };
+                // const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
   
                 return (console.log(product) || (
                     <Link key={product.id} href={`product/${product.id}`}>
@@ -107,12 +113,13 @@ export const getStaticProps = async (context) => {
     const products = await client.product.fetchAll();
     const infos = await client.shop.fetchInfo();
     const policies = await client.shop.fetchPolicies();
-  
+    const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
     return {
       props: {
         infos: JSON.parse(JSON.stringify(infos)),
         policies: JSON.parse(JSON.stringify(policies)),
         products: JSON.parse(JSON.stringify(products)),
+        charity: JSON.parse(JSON.stringify(data)),
         revalidate: 10, // In seconds
       },
     };
