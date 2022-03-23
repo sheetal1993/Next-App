@@ -29,13 +29,18 @@ exports.handler = async (event,context) => {
     try {
         const records = await table.select({}).firstPage();
         const minfiedItems = minifyItems(records);
+        let charityArr = {};
+        for (let i = 0; i < minfiedItems.length; i++) {
+            console.log(minfiedItems[i]);
+            charityArr[minfiedItems[i].fields.type] = minfiedItems[i].fields;
+          }
         //res.status(200).json(minfiedItems);
         return {
             Headers:{
                 'Access-Control-Allow-Origin' : '*'
             },
             statusCode: 200,
-            body: JSON.stringify(minfiedItems),
+            body: JSON.stringify(charityArr),
         }
       } catch (error) {
         // console.error(error);
