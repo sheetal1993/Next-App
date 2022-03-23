@@ -24,6 +24,7 @@ import {
   Visibility,
 } from "semantic-ui-react";
 import charity from '../assets/charity';
+import axios from 'axios';
 
 /* Heads up!
  * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled

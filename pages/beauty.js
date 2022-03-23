@@ -7,6 +7,8 @@ import { createMedia } from "@artsy/fresnel";
 import { setCookies } from 'cookies-next';
 import { getCookie } from 'cookies-next';
 import SEO from "../components/SEO";
+import axios from 'axios';
+
 import {
   Button,
   Popup,

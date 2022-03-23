@@ -3,7 +3,7 @@ import { client } from "../../utils/shopify";
 import { addProductToCart } from "../../utils/Cart";
 import Head from "next/head";
 import { getCookie } from 'cookies-next';
-import axios from 'axios'
+import axios from 'axios';
 
 import {
   List,
