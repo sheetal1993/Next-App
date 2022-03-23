@@ -41,24 +41,11 @@ const Beauty = (props) =>
             />
             <Card.Group itemsPerRow={props.isMobile ? 3 : 4}>
               {props.beautyProducts?.map(function(product, idx){
-                const charityArr = {
-                  "care":
-                  {
-                    "name": "care",
-                    "unit": 1,
-                    "message": "1 unit available of care",
-                    "cost":450
-                  },
-                  "home":
-                  {
-                    "name": "home",
-                    "unit": 2,
-                    "message": "2 unit available of home",
-                    "cost":500
-                  }
-                };
-                const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
-  
+                const charityArr = props.charity;
+                const type = getCookie('charity') ? getCookie('charity') : 'care';
+                let message = charityArr[type].desc;
+                message = message.replace('[[unit]]', charityArr[type].unit);
+                message = message.replace('[[price]]', charityArr[type].price);
                   return (console.log(product) || (
                     <Link key={product.id} href={`product/${product.id}`}>
                       <Card raised>
@@ -98,12 +85,13 @@ export const getStaticProps = async (context) => {
   const beautyProducts = await client.product.fetchQuery(query);
   const infos = await client.shop.fetchInfo();
   const policies = await client.shop.fetchPolicies();
-
+  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   return {
     props: {
       infos: JSON.parse(JSON.stringify(infos)),
       policies: JSON.parse(JSON.stringify(policies)),
       beautyProducts: JSON.parse(JSON.stringify(beautyProducts)),
+      charity: JSON.parse(JSON.stringify(data)),
       revalidate: 10, // In seconds
     },
   };
