@@ -3,6 +3,7 @@ import { client } from "../../utils/shopify";
 import { addProductToCart } from "../../utils/Cart";
 import Head from "next/head";
 import { getCookie } from 'cookies-next';
+import axios from 'axios'
 
 import {
   List,
@@ -17,24 +18,24 @@ const ProductPage = (props) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState("");
-  const charityArr = {
-    "care":
-    {
-      "name": "care",
-      "unit": 1,
-      "message": "1 unit available of care",
-      "cost":450
-    },
-    "home":
-    {
-      "name": "home",
-      "unit": 2,
-      "message": "2 unit available of home",
-      "cost":500
-    }
-  };
-  const charityArr1 = props.charity;
-  const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
+  // const charityArr = {
+  //   "care":
+  //   {
+  //     "name": "care",
+  //     "unit": 1,
+  //     "message": "1 unit available of care",
+  //     "cost":450
+  //   },
+  //   "home":
+  //   {
+  //     "name": "home",
+  //     "unit": 2,
+  //     "message": "2 unit available of home",
+  //     "cost":500
+  //   }
+  // };
+  const charityArr = props.charity;
+  const message = getCookie('charity') ? charityArr[getCookie('charity')].desc : charityArr['care'].desc;
 
   console.log(props.product);
   const {
