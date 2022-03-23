@@ -17,24 +17,25 @@ const ProductPage = (props) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState("");
-  // const charityArr = {
-  //   "care":
-  //   {
-  //     "name": "care",
-  //     "unit": 1,
-  //     "message": "1 unit available of care",
-  //     "cost":450
-  //   },
-  //   "home":
-  //   {
-  //     "name": "home",
-  //     "unit": 2,
-  //     "message": "2 unit available of home",
-  //     "cost":500
-  //   }
-  // };
-  const charityArr = props.charityArr;
-  const message = getCookie('charity') ? charityArr[getCookie('charity')].desc : charityArr['care'].desc;
+  const charityArr = {
+    "care":
+    {
+      "name": "care",
+      "unit": 1,
+      "message": "1 unit available of care",
+      "cost":450
+    },
+    "home":
+    {
+      "name": "home",
+      "unit": 2,
+      "message": "2 unit available of home",
+      "cost":500
+    }
+  };
+  const charityArr1 = props.charityArr;
+  console.log(charityArr1);
+  const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
 
   console.log(props.product);
   const {
@@ -69,16 +70,6 @@ const ProductPage = (props) => {
     <Grid centered container>
       <Head>
         <meta charSet="UTF-8" />
-        <meta name="charity" content='{
-        "care": {
-        "name": "care",
-        "unit": 1
-        },
-        "home": {
-        "name": "home",
-        "unit": 2
-        }
-     }' />
       </Head>
       <Grid.Row stackable padded centered>
         <Grid.Column mobile={16} tablet={10} computer={10}>
@@ -109,7 +100,7 @@ const ProductPage = (props) => {
           style={{ marginTop: 50 }}
         >
           <Segment>
-            <Header>{title} {message}</Header>
+            <Header>{title} {message} {JSON.stringify(charityArr1)}</Header>
             <Header as="h3">Size </Header>
             <Dropdown
               // placeholder="Select Friend"
@@ -179,7 +170,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
-      charityArr: data,
+      charityArr: JSON.parse(JSON.stringify(data)),
       revalidate: 60,
     }, // will be passed to the page component as props
   };
