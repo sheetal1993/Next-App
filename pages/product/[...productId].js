@@ -33,8 +33,7 @@ const ProductPage = (props) => {
       "cost":500
     }
   };
-  const charityArr1 = props.charityArr;
-  console.log(charityArr1);
+  const charityArr1 = props.charity;
   const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
 
   console.log(props.product);
@@ -100,7 +99,7 @@ const ProductPage = (props) => {
           style={{ marginTop: 50 }}
         >
           <Segment>
-            <Header>{title} {message} {JSON.stringify(charityArr1)}</Header>
+            <Header>{title} {message}</Header>
             <Header as="h3">Size </Header>
             <Dropdown
               // placeholder="Select Friend"
@@ -170,7 +169,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
-      charityArr: JSON.parse(JSON.stringify(data)),
+      charity: JSON.parse(JSON.stringify(data)),
       revalidate: 60,
     }, // will be passed to the page component as props
   };
