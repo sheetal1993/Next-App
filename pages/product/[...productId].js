@@ -34,7 +34,7 @@ const ProductPage = (props) => {
   //   }
   // };
   const charityArr = props.charityArr;
-  const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
+  const message = getCookie('charity') ? charityArr[getCookie('charity')].desc : charityArr['care'].desc;
 
   console.log(props.product);
   const {
