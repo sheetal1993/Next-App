@@ -35,8 +35,10 @@ const ProductPage = (props) => {
   //   }
   // };
   const charityArr = props.charity;
-  const message = getCookie('charity') ? charityArr[getCookie('charity')].desc : charityArr['care'].desc;
-
+  const type = getCookie('charity') ? getCookie('charity') : 'care';
+  let message = charityArr[type].desc;
+  message = message.replace('[[unit]]', charityArr[type].unit);
+  message = message.replace('[[price]]', charityArr[type].price);
   console.log(props.product);
   const {
     product: { images, title, descriptionHtml, id, variants },
