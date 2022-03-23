@@ -92,7 +92,7 @@ class Productlisting extends Component {
 export default withRouter(Productlisting);
 
 export const getStaticProps = async (context) => {
-    const products = await client.product.fetchAll(200);
+    const products = await client.product.fetchAll();
     const infos = await client.shop.fetchInfo();
     const policies = await client.shop.fetchPolicies();
     const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
