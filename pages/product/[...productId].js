@@ -17,22 +17,23 @@ const ProductPage = (props) => {
   const [productQuantity, setProductQuantity] = useState(0);
   const [selectedImage, setSelectedImage] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState("");
-  const charityArr = {
-    "care":
-    {
-      "name": "care",
-      "unit": 1,
-      "message": "1 unit available of care",
-      "cost":450
-    },
-    "home":
-    {
-      "name": "home",
-      "unit": 2,
-      "message": "2 unit available of home",
-      "cost":500
-    }
-  };
+  // const charityArr = {
+  //   "care":
+  //   {
+  //     "name": "care",
+  //     "unit": 1,
+  //     "message": "1 unit available of care",
+  //     "cost":450
+  //   },
+  //   "home":
+  //   {
+  //     "name": "home",
+  //     "unit": 2,
+  //     "message": "2 unit available of home",
+  //     "cost":500
+  //   }
+  // };
+  const charityArr = props.charityArr;
   const message = getCookie('charity') ? charityArr[getCookie('charity')].message : charityArr['care'].message;
 
   console.log(props.product);
@@ -171,12 +172,14 @@ export const getStaticPaths = async () => {
 
 export async function getStaticProps({ params }) {
   const productId = params.productId.join('/');
+  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   console.log(productId);
 
   const product = await client.product.fetch(productId);
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
+      charityArr: data,
       revalidate: 60,
     }, // will be passed to the page component as props
   };
