@@ -49,7 +49,7 @@ class Productlisting extends Component {
                   const productType = product.productType;
 
                   if(!query.type || (query.type && productType.match(query.type.charAt(0).toUpperCase()+query.type.slice(1)))) {
-                    const charityArr = props.charity;
+                    const charityArr = this.props.charity;
                     const type = getCookie('charity') ? getCookie('charity') : 'care';
                     let message = charityArr[type].desc;
                     message = message.replace('[[unit]]', charityArr[type].unit);
