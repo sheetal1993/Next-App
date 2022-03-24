@@ -29,11 +29,28 @@ exports.handler = async (event,context) => {
     try {
         const records = await table.select({}).firstPage();
         const minfiedItems = minifyItems(records);
-        let charityArr = {};
-        for (let i = 0; i < minfiedItems.length; i++) {
-            console.log(minfiedItems[i]);
-            charityArr[minfiedItems[i].fields.type] = minfiedItems[i].fields;
+        let charityArr = {
+          "care":
+          {
+            "name": "care",
+            "unit": 1,
+            "desc": "[[unit]] unit available of care [[price]]",
+            "price":450
+          },
+          "home":
+          {
+            "name": "home",
+            "unit": 2,
+            "desc": "[[unit]] unit available of home [[price]]",
+            "price":500
           }
+        };
+        if(minfiedItems.length) {
+          for (let i = 0; i < minfiedItems.length; i++) {
+              console.log(minfiedItems[i]);
+              charityArr[minfiedItems[i].fields.type] = minfiedItems[i].fields;
+            }
+        }
         //res.status(200).json(minfiedItems);
         return {
             Headers:{
@@ -46,23 +63,8 @@ exports.handler = async (event,context) => {
         // console.error(error);
         // res.status(500).json({ msg: "Something went wrong! 😕" });
         return {
-            statusCode: 200,
-            body: JSON.stringify({
-                "care":
-                {
-                  "name": "care",
-                  "unit": 1,
-                  "desc": "[[unit]] unit available of care [[price]]",
-                  "price":450
-                },
-                "home":
-                {
-                  "name": "home",
-                  "unit": 2,
-                  "desc": "[[unit]] unit available of home [[price]]",
-                  "price":500
-                }
-              }),
+            statusCode: 500,
+            body: JSON.stringify(error),
         }
       }
     
