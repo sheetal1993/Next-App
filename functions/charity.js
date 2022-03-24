@@ -46,8 +46,23 @@ exports.handler = async (event,context) => {
         // console.error(error);
         // res.status(500).json({ msg: "Something went wrong! 😕" });
         return {
-            statusCode: 500,
-            body: JSON.stringify(error),
+            statusCode: 200,
+            body: JSON.stringify({
+                "care":
+                {
+                  "name": "care",
+                  "unit": 1,
+                  "desc": "1 unit available of care",
+                  "price":450
+                },
+                "home":
+                {
+                  "name": "home",
+                  "unit": 2,
+                  "desc": "2 unit available of home",
+                  "price":500
+                }
+              }),
         }
       }
     
