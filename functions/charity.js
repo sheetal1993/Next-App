@@ -52,14 +52,14 @@ exports.handler = async (event,context) => {
                 {
                   "name": "care",
                   "unit": 1,
-                  "desc": "1 unit available of care",
+                  "desc": "[[unit]] unit available of care [[price]]",
                   "price":450
                 },
                 "home":
                 {
                   "name": "home",
                   "unit": 2,
-                  "desc": "2 unit available of home",
+                  "desc": "[[unit]] unit available of home [[price]]",
                   "price":500
                 }
               }),
