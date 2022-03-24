@@ -46,7 +46,7 @@ exports.handler = async (event,context) => {
             console.log(minfiedItems[i]);
             charityArr[minfiedItems[i].fields.type] = minfiedItems[i].fields;
           }
-          localStorage.setItem("charity", JSON.stringify(charityArr))  
+          //localStorage.setItem("charity", JSON.stringify(charityArr))  
         //res.status(200).json(minfiedItems);
         return {
             Headers:{
