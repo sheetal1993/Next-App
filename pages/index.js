@@ -73,7 +73,7 @@ const HomepageHeading = ({ mobile }) => (
     }}>
       Set home
     </Button>
-    <Link key="beauty" href="/beauty"><Button primary size="huge">
+    {/* <Link key="beauty" href="/beauty"><Button primary size="huge">
     Beauty
     </Button></Link>
     <Link key="Jewelry" href="/jewelry"><Button primary size="huge">
@@ -81,7 +81,7 @@ const HomepageHeading = ({ mobile }) => (
     </Button></Link>
     <Link key="products" href="/productlisting?type=jewelry"><Button primary size="huge">
     All Products
-    </Button></Link>
+    </Button></Link> */}
   </Container>
 );
 
