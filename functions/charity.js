@@ -27,6 +27,18 @@ const getMinifiedItem = (record) => {
 };
 exports.handler = async (event,context) => {
     try {
+      console.log(1111);
+        if(localStorage.getItem("charity")) {
+          console.log(2222);
+            return {
+              Headers:{
+                  'Access-Control-Allow-Origin' : '*'
+              },
+              statusCode: 200,
+              body: JSON.stringify(localStorage.getItem("charity")),
+          }
+        }
+        console.log(3333);
         const records = await table.select({}).firstPage();
         const minfiedItems = minifyItems(records);
         let charityArr = {};
@@ -34,6 +46,7 @@ exports.handler = async (event,context) => {
             console.log(minfiedItems[i]);
             charityArr[minfiedItems[i].fields.type] = minfiedItems[i].fields;
           }
+          localStorage.setItem("charity", JSON.stringify(charityArr))  
         //res.status(200).json(minfiedItems);
         return {
             Headers:{
