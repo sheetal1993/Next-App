@@ -79,8 +79,12 @@ const HomepageHeading = ({ mobile }) => (
     <Link key="Jewelry" href="/jewelry"><Button primary size="huge">
     Jewelry
     </Button></Link>
-    {localStorage.setItem("daydream","sheetal")}
-    <Button>{localStorage.getItem("daydream")}</Button>
+    {
+    
+    typeof window !== 'undefined' ? window.localStorage.setItem("daydream","sheetal") : ''
+      
+    }
+    <Button>{typeof window !== 'undefined' ? window.localStorage.getItem("daydream") : 'No local staorage set'}</Button>
     {/* <Link key="products" href="/productlisting?type=jewelry"><Button primary size="huge">
     All Products
     </Button></Link> */}
