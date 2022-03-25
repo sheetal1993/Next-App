@@ -165,6 +165,7 @@ export const getStaticProps = async (context) => {
   if(!charityStoredArr) {
   const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   charityStoredArr = data;
+  typeof window !== 'undefined' ? window.localStorage.setItem("charityStored") : JSON.stringify(charityStoredArr);
   }
   return {
     props: {
