@@ -115,9 +115,10 @@ const Home = (props) =>
               {props.products?.map(function(product, idx){
                 const charityArr = props.charity;
                 const type = getCookie('charity') ? getCookie('charity') : 'care';
-                let message = charityArr[type].desc;
-                message = message.replace('[[unit]]', charityArr[type].unit);
-                message = message.replace('[[price]]', charityArr[type].price);
+                // let message = charityArr[type].desc;
+                let message = 'xyz';
+                // message = message.replace('[[unit]]', charityArr[type].unit);
+                // message = message.replace('[[price]]', charityArr[type].price);
                 
                   return (console.log(product) || (
                     <Link key={product.id} href={`product/${product.id}`}>
@@ -155,13 +156,13 @@ export const getStaticProps = async (context) => {
   const products = await client.product.fetchAll();
   const infos = await client.shop.fetchInfo();
   const policies = await client.shop.fetchPolicies();
-  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
+  // const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   return {
     props: {
       infos: JSON.parse(JSON.stringify(infos)),
       policies: JSON.parse(JSON.stringify(policies)),
       products: JSON.parse(JSON.stringify(products)),
-      charity: JSON.parse(JSON.stringify(data)),
+      charity: JSON.parse(JSON.stringify({})),
       revalidate: 10, // In seconds
     },
   };
