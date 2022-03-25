@@ -161,14 +161,18 @@ export const getStaticProps = async (context) => {
   const products = await client.product.fetchAll();
   const infos = await client.shop.fetchInfo();
   const policies = await client.shop.fetchPolicies();
+  let charityStoredArr = typeof window !== 'undefined' && window.localStorage.getItem("charityStored") ? window.localStorage.getItem("charityStored") : ''
+  if(!charityStoredArr) {
   const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
+  charityStoredArr = data;
+  }
   return {
     props: {
       infos: JSON.parse(JSON.stringify(infos)),
       policies: JSON.parse(JSON.stringify(policies)),
       products: JSON.parse(JSON.stringify(products)),
-      charity: JSON.parse(JSON.stringify(data)),
-      revalidate: 10, // In seconds
+      charity: JSON.parse(JSON.stringify(charityStoredArr)),
+      revalidate: 60, // In seconds
     },
   };
 };
