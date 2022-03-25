@@ -36,10 +36,9 @@ const ProductPage = (props) => {
   // };
   const charityArr = props.charity;
   const type = getCookie('charity') ? getCookie('charity') : 'care';
-  let message ='xyz';
-  // let message = charityArr[type].desc;
-  // message = message.replace('[[unit]]', charityArr[type].unit);
-  // message = message.replace('[[price]]', charityArr[type].price);
+  let message = charityArr[type].desc;
+  message = message.replace('[[unit]]', charityArr[type].unit);
+  message = message.replace('[[price]]', charityArr[type].price);
   console.log(props.product);
   const {
     product: { images, title, descriptionHtml, id, variants },
@@ -166,14 +165,14 @@ export const getStaticPaths = async () => {
 
 export async function getStaticProps({ params }) {
   const productId = params.productId.join('/');
-  // const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
+  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   console.log(productId);
 
   const product = await client.product.fetch(productId);
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
-      charity: JSON.parse(JSON.stringify({})),
+      charity: JSON.parse(JSON.stringify(data)),
       revalidate: 60,
     }, // will be passed to the page component as props
   };
