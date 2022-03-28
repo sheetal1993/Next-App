@@ -65,11 +65,13 @@ const HomepageHeading = ({ mobile }) => (
     </Button>
     <Button primary size="huge" onClick={() => {
       setCookies('charity', 'care');
+      window.location.reload(true)
     }}>
       Set Care
     </Button>
     <Button primary size="huge" onClick={() => {
       setCookies('charity', 'home');
+      window.location.reload(true)
     }}>
       Set home
     </Button>
