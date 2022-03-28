@@ -165,14 +165,24 @@ export const getStaticPaths = async () => {
 
 export async function getStaticProps({ params }) {
   const productId = params.productId.join('/');
-  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
+  //const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   console.log(productId);
+  let charityStoredArr = typeof window !== 'undefined' && window.localStorage.getItem("charityStored") ? window.localStorage.getItem("charityStored") : ''
+  if(typeof window !== 'undefined' && window.localStorage.getItem("charityStored")){
+    console.log('testing local storage setted');
+  }
+  if(!charityStoredArr) {
+  const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
+  charityStoredArr = data;
+  console.log('testing local storage setting');
+  typeof window !== 'undefined' ? window.localStorage.setItem("charityStored") : JSON.stringify(charityStoredArr);
+  }
 
   const product = await client.product.fetch(productId);
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),
-      charity: JSON.parse(JSON.stringify(data)),
+      charity: JSON.parse(JSON.stringify(charityStoredArr)),
       revalidate: 60,
     }, // will be passed to the page component as props
   };
