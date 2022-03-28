@@ -167,6 +167,7 @@ export const getStaticProps = async (context) => {
   if(typeof window !== 'undefined' && window.localStorage.getItem("charityStored")){
     console.log('testing local storage setted');
   }
+  typeof window !== 'undefined' ? window.localStorage.setItem("daydream1","sheetal") : ''
   if(!charityStoredArr) {
   const {data} = await axios.get(process.env.NETLIFY_URL + '/api1/charity');
   charityStoredArr = data;
