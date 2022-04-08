@@ -17,9 +17,6 @@ export default function SearchBar() {
           {/* Adding Search Box */}
           <SearchBox />
           <RefinementList attribute="Title" />
-          <RefinementList attribute="Tags" />
-          <RefinementList attribute="TagFilters" />
-          <RefinementList attribute="NumericFilters" />
           {/* Adding Data */}
           <Hits />
         </InstantSearch>
