@@ -25,7 +25,7 @@ import {
 } from "semantic-ui-react";
 import charity from '../assets/charity';
 import axios from 'axios';
-import Search from "../components/Search";
+
 /* Heads up!
  * HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled
  * components for such things.
@@ -90,7 +90,6 @@ const HomepageHeading = ({ mobile }) => (
     {/* <Link key="products" href="/productlisting?type=jewelry"><Button primary size="huge">
     All Products
     </Button></Link> */}
-    <Search />
   </Container>
 );
 
