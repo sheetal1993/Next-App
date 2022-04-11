@@ -19,6 +19,7 @@ function Hits({ searchState, searchResults }) {
                 </>
             )}
         </>
+    )
 }
 
 export default connectStateResults(Hits)
