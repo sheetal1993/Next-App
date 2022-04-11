@@ -19,6 +19,7 @@
     "apollo-link-http": "^1.5.17",
     "axios": "^0.21.1",
     "cookies-next": "^2.0.4",
+    "dotenv": "^16.0.0",
     "geoip-lite": "^1.4.4",
     "graphql": "^15.8.0",
     "graphql-tag": "^2.12.6",

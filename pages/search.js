@@ -1,10 +1,12 @@
 import algoliasearch from "algoliasearch/lite";
+import SearchBox from "../components/Search";
+import Hits from "../components/Search";
 import { InstantSearch, SearchBox, Hits, RefinementList  }
     from "react-instantsearch-dom";
 
     const searchClient = algoliasearch(
-      'VN3BCP1RCW',
-      'e4190f9c2f41083cf64ec16c723fbe5b',
+      'HQVOQMXDDN',
+      '15f0547a6287ff6af05a37a9c17d4b33',
     );
     
 export default function SearchBar() {
@@ -16,8 +18,6 @@ export default function SearchBar() {
     
           {/* Adding Search Box */}
           <SearchBox />
-          <RefinementList attribute="Title" />
-
           {/* Adding Data */}
           <Hits />
         </InstantSearch>
